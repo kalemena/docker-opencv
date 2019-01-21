@@ -1,0 +1,36 @@
+sudo: required
+
+services:
+  - docker
+
+env:
+  global:
+    - REGISTRY_USER=kalemena
+    - secure: "Es51vVGjabVCldP1LnhDB8W/dK4pBSt8Ht/VonjEZWTZFa9UMu8ksCkgrS6L/BsogevAXkkS6YRTX1gJ7y6HYRgPBCDEdV2c4vL6Vx/s6dZoiYzUU6hl+AcQjaGAZ2lCcdgsir28ZHSrphXEruGlBduNBwTKTJ3XpgTtjgBOar8OmACPeX+6VV+TKiUziviaazsnVEW0PfQDrcvo5xDYYXJPUohq7DRXH4n+O2FHhGMoEOZgf55LNAmBk5zf3yhmIQZY6JU5HSFhn8IXNfq9TZ4HTAAZPG2mfAL8MR72FBafm1YyKL09+s3AoECkqWlrKZ02GGWC/4GXKaIKDn+AxTGEfntIrgMcxam3pSUb2bloUYwLGZv/LoDTrIHe+O7Bjg5ZWTGNF3XZlF5AliUgxlJstFDtGU2Y+eOZ228TsKgB7bfAVtAgctszEz7d5JxlSfQWqIu7JuON7ocoyTtPs8aA9SAhtUak9jvCIW90gHV9cckhAQPf60ky6Y5a9FVQRtWIssp5Sp5VDDcctWWCIxTEuhhJWzS22rnMgYEAxc4T0PLDLti2tT1CI5G64g8YvLms+Ff9zPJU075PY1rp4sxIHk0pUfVfWdx12aRTE3BoScR8q1qiCWl80/uWdpwtjpmTIodHyV02A7QrpEyI+hA7M/U1kqImPyB6cWyGe2I="
+  matrix:
+    - IMAGE="kalemena/opencv" VERSION="4.0.1" REPO="kalemena/docker-opencv"
+
+before_script:
+  - docker pull ubuntu:18.04
+  - docker pull ${IMAGE}:${VERSION} || true
+
+script:
+  - |
+    docker build --pull --cache-from ${IMAGE}:${VERSION} \
+      -t ${IMAGE}:${VERSION} \
+      -f Dockerfile \
+      --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+      --build-arg VCS_REF=`git rev-parse --short HEAD` \
+      --build-arg VERSION=${VERSION} .
+  - docker ps -a
+  - docker tag ${IMAGE}:${VERSION} ${IMAGE}:latest
+  - docker images
+
+before_deploy:
+  - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
+
+deploy:
+  provider: script
+  script: docker push ${IMAGE}:${VERSION}; docker push ${IMAGE}:latest
+  on:
+    branch: master
