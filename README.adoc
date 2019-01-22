@@ -1,0 +1,29 @@
+# docker-opencv
+
+ifdef::env-github[]
+image:https://travis-ci.org/kalemena/docker-opencv.svg[Travis build status, link=https://travis-ci.org/kalemena/docker-opencv]
+image:https://images.microbadger.com/badges/version/kalemena/opencv.svg[Docker Version, link=https://microbadger.com/images/kalemena/opencv]
+image:https://images.microbadger.com/badges/image/kalemena/opencv.svg[Docker Hub, link=https://hub.docker.com/r/kalemena/opencv/tags]
+endif::[]
+
+OpenCV in docker.
+
+# How-To
+
+## Build
+
+This will create kalemena/opencv:latest image
+
+[source,bash]
+----
+$ make build
+----
+
+## Run Console
+
+This will start a bash console.
+
+[source,bash]
+----
+$ make start
+----
