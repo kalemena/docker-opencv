@@ -11,3 +11,6 @@ start:
 	@echo "+++ Environment starting ... +++"
 	/bin/bash ./run.sh
 	@echo "+++ Environment started +++"
+
+tests-redeye:
+	/bin/bash ./build-tests.sh

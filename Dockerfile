@@ -41,6 +41,11 @@ RUN pip3 --no-cache-dir install wheel numpy scipy matplotlib scikit-image scikit
 # 		pip install --upgrade setuptools && \ 
 # 		pip install -r jasper/client/requirements.txt
 
+RUN wget https://github.com/opencv/opencv_contrib/archive/${VERSION}.zip; \
+    unzip ${VERSION}.zip; \
+    rm ${VERSION}.zip; \
+    mv opencv_contrib-${VERSION} /opt/opencv_contrib;
+
 RUN wget https://github.com/opencv/opencv/archive/${VERSION}.zip; \
     unzip ${VERSION}.zip; \
     rm ${VERSION}.zip; \
@@ -48,7 +53,22 @@ RUN wget https://github.com/opencv/opencv/archive/${VERSION}.zip; \
     cd /opt/opencv; \
     mkdir build; \
     cd build; \
-    cmake -DWITH_QT=ON -DWITH_OPENGL=ON -DFORCE_VTK=ON -DWITH_TBB=ON -DWITH_GDAL=ON -DWITH_XINE=ON -DBUILD_EXAMPLES=ON -DENABLE_PRECOMPILED_HEADERS=OFF ..; \
+    cmake   -D CMAKE_BUILD_TYPE=RELEASE \
+	        -D CMAKE_INSTALL_PREFIX=/usr/local \
+            -D WITH_QT=ON \
+            -D WITH_OPENGL=ON \
+            -D WITH_V4L=ON \
+            -D FORCE_VTK=ON \
+            -D WITH_TBB=ON \
+            -D WITH_GDAL=ON \
+            -D WITH_XINE=ON \
+            -D BUILD_EXAMPLES=ON \
+            -D INSTALL_PYTHON_EXAMPLES=ON \
+            -D OPENCV_PYTHON3_INSTALL_PATH=/opt/opencv-python-examples \
+            -D INSTALL_C_EXAMPLES=OFF \
+            -D OPENCV_ENABLE_NONFREE=ON \
+            -D OPENCV_EXTRA_MODULES_PATH=/opt/opencv_contrib/modules \
+            -D ENABLE_PRECOMPILED_HEADERS=OFF ..; \
     make -j4; \
     make install; \
     ldconfig
@@ -77,20 +97,5 @@ RUN wget https://github.com/opencv/opencv/archive/${VERSION}.zip; \
 # git gfortran software-properties-common
 # cd /usr/include/linux
 # sudo ln -s -f ../libv4l1-videodev.h videodev.h
-# cd "$cwd"
-
-# git clone https://github.com/opencv/opencv_contrib.git
-
-# cmake -D CMAKE_BUILD_TYPE=RELEASE \
-#             -D CMAKE_INSTALL_PREFIX=$cwd/installation/OpenCV-"$cvVersion" \
-#             -D INSTALL_C_EXAMPLES=ON \
-#             -D INSTALL_PYTHON_EXAMPLES=ON \
-#             -D WITH_TBB=ON \
-#             -D WITH_V4L=ON \
-#             -D OPENCV_PYTHON3_INSTALL_PATH=$cwd/OpenCV-$cvVersion-py3/lib/python3.5/site-packages \
-#         -D WITH_QT=ON \
-#         -D WITH_OPENGL=ON \
-#         -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \
-#         -D BUILD_EXAMPLES=ON ..
 
 CMD [ "/bin/bash" ]
