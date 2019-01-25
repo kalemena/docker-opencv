@@ -34,7 +34,7 @@ RUN apt-get update -y; \
  	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*;
 
 RUN pip3 --no-cache-dir install wheel numpy scipy matplotlib scikit-image scikit-learn ipython dlib;
-RUN pip3 --no-cache-dir install pillow jupyterlab tensorflow;
+RUN pip3 --no-cache-dir install pillow jupyterlab;
 
 # libjasper-dev
 # RUN git clone https://github.com/jasperproject/jasper-client.git jasper && \
@@ -99,12 +99,11 @@ RUN wget https://github.com/opencv/opencv/archive/${VERSION}.zip; \
 # cd /usr/include/linux
 # sudo ln -s -f ../libv4l1-videodev.h videodev.h
 
-# RUN export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
+RUN export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
 
-# RUN jupyter notebook --generate-config --allow-root; \
-#     echo "c.NotebookApp.password = u'sha1:6a3f528eec40:6e896b6e4828f525a6e20e5411cd1c8075d68619'" >> /root/.jupyter/jupyter_notebook_config.py
+RUN jupyter notebook --generate-config --allow-root; \
+    echo "c.NotebookApp.password = u'sha1:6a3f528eec40:6e896b6e4828f525a6e20e5411cd1c8075d68619'" >> /root/.jupyter/jupyter_notebook_config.py
 
-# EXPOSE 8888
+EXPOSE 8888
 
-# CMD ["jupyter", "lab", "--allow-root", "--notebook-dir=/notebooks", "--ip='0.0.0.0'", "--port=8888", "--no-browser"]
-CMD [ "/bin/bash" ]
+CMD ["jupyter", "lab", "--allow-root", "--notebook-dir=/notebooks", "--ip='0.0.0.0'", "--port=8888", "--no-browser"]
