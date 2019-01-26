@@ -1,5 +1,5 @@
 
-VERSION := 4.0.1
+VERSION := latest
 
 all: build start
 
