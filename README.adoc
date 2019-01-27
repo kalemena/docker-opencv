@@ -41,3 +41,23 @@ The object detection starts from code hosted at link:https://github.com/datitran
 ----
 $ bash ./src/test-object-detection/run.sh
 ----
+
+
+## Learning OpenCV examples
+
+Below start this container with mapping X11 display and opening attached webcam /dev/video0.
+
+The object detection starts from code hosted at link:https://github.com/spmallick/learnopencv[Learning OpenCV examples]
+
+[source,bash]
+----
+$ bash ./src/test-learnopencv/run.sh
+...
+# then either connect to http://localhost:8888 with password root
+# or
+# run command lines inside the container by running bellow command
+...
+$ docker exec -it <container id> bash
+----
+
+
