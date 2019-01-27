@@ -27,3 +27,17 @@ This will start a bash console.
 ----
 $ make start
 ----
+
+
+# Samples
+
+## Object Detection App
+
+Below start this container with mapping X11 display and opening attached webcam /dev/video0.
+
+The object detection starts from code hosted at link:https://github.com/datitran/object_detector_app[Object Detector App]
+
+[source,bash]
+----
+$ bash ./src/test-object-detection/run.sh
+----
