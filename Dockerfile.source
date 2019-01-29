@@ -112,7 +112,6 @@ RUN wget https://github.com/opencv/opencv/archive/${VERSION}.zip; \
             -D BUILD_opencv_java=OFF \
             -D BUILD_EXAMPLES=ON \
             -D INSTALL_PYTHON_EXAMPLES=ON \
-            -D OPENCV_PYTHON3_INSTALL_PATH=/opt/opencv-python-examples \
             -D INSTALL_C_EXAMPLES=OFF \
             -D OPENCV_ENABLE_NONFREE=ON \
             -D OPENCV_EXTRA_MODULES_PATH=/opt/opencv_contrib/modules \
@@ -120,6 +119,9 @@ RUN wget https://github.com/opencv/opencv/archive/${VERSION}.zip; \
     make -j4; \
     make install; \
     ldconfig
+
+#            -D OPENCV_PYTHON3_INSTALL_PATH=/opt/opencv-python-examples \
+# cp /opt/opencv/build/lib/python3/cv2.cpython-36m-x86_64-linux-gnu.so /usr/local/lib/python3.6/dist-packages
 
 RUN export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
 
@@ -130,4 +132,4 @@ EXPOSE 8888
 
 ADD [ "bootstrap.sh", "/"]
 
-CMD [ "/bin/bash", "bootstrap.sh" ]
+CMD [ "/bin/bash", "/bootstrap.sh" ]

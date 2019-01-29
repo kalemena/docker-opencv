@@ -5,4 +5,4 @@ docker run -it --rm -p 8888:8888 \
     -e "DISPLAY" \
     -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
     -v $PWD/src:/notebooks \
-    kalemena/opencv:latest
+    kalemena/opencv:4.0.1
