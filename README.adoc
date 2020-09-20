@@ -1,16 +1,17 @@
-# docker-opencv
+= docker-opencv
 
 ifdef::env-github[]
-image:https://travis-ci.org/kalemena/docker-opencv.svg[Travis build status, link=https://travis-ci.org/kalemena/docker-opencv]
-image:https://images.microbadger.com/badges/version/kalemena/opencv.svg[Docker Version, link=https://microbadger.com/images/kalemena/opencv]
-image:https://images.microbadger.com/badges/image/kalemena/opencv.svg[Docker Hub, link=https://hub.docker.com/r/kalemena/opencv/tags]
+image:https://github.com/kalemena/docker-opencv/workflows/Pipeline/badge.svg[GitHub Build]
+image:https://img.shields.io/docker/v/kalemena/opencv[Docker Hub, link=https://hub.docker.com/r/kalemena/opencv/tags]
+image:https://img.shields.io/docker/pulls/kalemena/opencv[Docker Hub, link=https://hub.docker.com/r/kalemena/opencv/tags]
+image:https://img.shields.io/docker/image-size/kalemena/opencv[Docker Hub, link=https://hub.docker.com/r/kalemena/opencv/tags]
 endif::[]
 
 OpenCV in docker.
 
-# How-To
+= How-To
 
-## Build
+== Build
 
 This will create kalemena/opencv:latest image
 
@@ -19,7 +20,7 @@ This will create kalemena/opencv:latest image
 $ make build
 ----
 
-## Run Console
+== Run Console
 
 This will start a bash console.
 
@@ -28,10 +29,9 @@ This will start a bash console.
 $ make start
 ----
 
+= Samples
 
-# Samples
-
-## Object Detection App
+== Object Detection App
 
 Below start this container with mapping X11 display and opening attached webcam /dev/video0.
 
@@ -42,8 +42,7 @@ The object detection starts from code hosted at link:https://github.com/datitran
 $ bash ./src/test-object-detection/run.sh
 ----
 
-
-## Learning OpenCV examples
+== Learning OpenCV examples
 
 Below start this container with mapping X11 display and opening attached webcam /dev/video0.
 
