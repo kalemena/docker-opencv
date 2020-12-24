@@ -6,6 +6,7 @@ all: build start
 
 build:
 	@echo "+++ Building docker image +++"
+	docker pull ubuntu:20.04
 	docker build --build-arg VERSION=$(VERSION) -t kalemena/opencv:$(VERSION) .
 
 build-git:
