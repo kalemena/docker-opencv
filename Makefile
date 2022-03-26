@@ -1,13 +1,14 @@
 
 VERSION := latest
 VERSION_GIT := 4.0.1
+IMAGE_FROM := ubuntu:22.04
 
 all: build start
 
 build:
 	@echo "+++ Building docker image +++"
-	docker pull ubuntu:20.04
-	docker build --build-arg VERSION=$(VERSION) -t kalemena/opencv:$(VERSION) .
+	docker pull $(IMAGE_FROM)
+	docker build --build-arg IMAGE_FROM=$(IMAGE_FROM) --build-arg VERSION=$(VERSION) -t kalemena/opencv:$(VERSION) .
 
 build-git:
 	@echo "+++ Building docker image +++"
