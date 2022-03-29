@@ -12,12 +12,10 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build Docker Image
       env:
-        IMAGE_FROM: "ubuntu:22.04"
         IMAGE: "kalemena/opencv"
         VERSION: "latest"
       run: |
         docker -v
-        docker pull ${IMAGE_FROM}
         docker pull ${IMAGE}:${VERSION} || true
         docker build --pull --cache-from ${IMAGE}:${VERSION} \
           -t ${IMAGE}:${VERSION} \
